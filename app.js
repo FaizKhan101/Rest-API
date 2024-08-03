@@ -1,20 +1,23 @@
-const express = require("express")
-const bodyPardser = require("body-parser")
+const express = require("express");
+const bodyPardser = require("body-parser");
 
-const feedRoutes = require("./routes/feed")
+const feedRoutes = require("./routes/feed");
 
-const app = express()
+const app = express();
 
 // app.use(bodyPardser.urlencoded()) // x-www-form-urlencoded <form>
-app.use(bodyPardser.json()) // application/json
+app.use(bodyPardser.json()); // application/json
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTION")
-    res.setHeader("Access-Contrl-Allow-Headers", "Content-Type, Authorization")
-    next()
-})
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "OPTIONS, GET, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
-app.use("/feed", feedRoutes)
+app.use("/feed", feedRoutes);
 
-app.listen(8080, () => console.log("Server start at port: 8080"))
+app.listen(8080, () => console.log("Server start at port: 8080"));
