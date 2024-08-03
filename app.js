@@ -8,6 +8,13 @@ const app = express()
 // app.use(bodyPardser.urlencoded()) // x-www-form-urlencoded <form>
 app.use(bodyPardser.json()) // application/json
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTION")
+    res.setHeader("Access-Contrl-Allow-Headers", "Content-Type, Authorization")
+    next()
+})
+
 app.use("/feed", feedRoutes)
 
 app.listen(8080, () => console.log("Server start at port: 8080"))
